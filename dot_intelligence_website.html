@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOT Intelligence — AI Strategy Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --dot-ink: #0D0D0D;
+    --dot-white: #F9F8F5;
+    --dot-accent: #1A1AFF;
+    --dot-accent2: #00E5A0;
+    --dot-muted: #5A5A5A;
+    --dot-border: rgba(13,13,13,0.12);
+    --dot-card: #FFFFFF;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--dot-white);
+    color: var(--dot-ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(249,248,245,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--dot-border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem; font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--dot-ink);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--dot-accent); }
+
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.875rem; font-weight: 500;
+    color: var(--dot-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--dot-ink); }
+
+  .nav-cta {
+    background: var(--dot-ink);
+    color: var(--dot-white) !important;
+    padding: 0.6rem 1.4rem;
+    border-radius: 2rem;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    transition: background 0.2s, transform 0.15s !important;
+  }
+
+  .nav-cta:hover { background: var(--dot-accent) !important; color: #fff !important; transform: scale(1.03); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(13,13,13,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(13,13,13,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: #E8E8FF;
+    color: var(--dot-accent);
+    font-size: 0.8rem; font-weight: 600;
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    margin-bottom: 2rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .hero-badge::before {
+    content: '';
+    display: block; width: 7px; height: 7px;
+    background: var(--dot-accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    max-width: 900px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 .accent { color: var(--dot-accent); }
+  .hero h1 .accent2 { color: #00B87C; }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--dot-muted);
+    max-width: 560px;
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+  }
+
+  .btn-primary {
+    background: var(--dot-ink);
+    color: #fff;
+    padding: 0.9rem 2rem;
+    border-radius: 3rem;
+    font-size: 0.95rem; font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    border: 2px solid transparent;
+  }
+
+  .btn-primary:hover { background: var(--dot-accent); transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--dot-ink);
+    padding: 0.9rem 2rem;
+    border-radius: 3rem;
+    font-size: 0.95rem; font-weight: 600;
+    text-decoration: none;
+    border: 2px solid var(--dot-ink);
+    transition: all 0.2s;
+  }
+
+  .btn-outline:hover { background: var(--dot-ink); color: #fff; transform: translateY(-2px); }
+
+  /* TICKER */
+  .ticker {
+    overflow: hidden;
+    border-top: 1px solid var(--dot-border);
+    border-bottom: 1px solid var(--dot-border);
+    padding: 1rem 0;
+    background: var(--dot-ink);
+    color: var(--dot-white);
+  }
+
+  .ticker-track {
+    display: flex; gap: 3rem;
+    animation: ticker 22s linear infinite;
+    width: max-content;
+  }
+
+  .ticker-item {
+    white-space: nowrap;
+    font-size: 0.8rem; font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(249,248,245,0.7);
+    display: flex; align-items: center; gap: 1rem;
+  }
+
+  .ticker-dot { width: 5px; height: 5px; background: var(--dot-accent2); border-radius: 50%; }
+
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SECTION */
+  section { padding: 6rem 2rem; }
+
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--dot-accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-desc {
+    font-size: 1.05rem;
+    color: var(--dot-muted);
+    max-width: 560px;
+  }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+
+  .service-card {
+    background: var(--dot-card);
+    border: 1px solid var(--dot-border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--dot-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { transform: translateY(-4px); border-color: rgba(26,26,255,0.25); }
+
+  .service-icon {
+    width: 48px; height: 48px;
+    background: #EBEBFF;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .service-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem; font-weight: 700;
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.02em;
+  }
+
+  .service-card p { font-size: 0.92rem; color: var(--dot-muted); line-height: 1.65; }
+
+  /* STATS */
+  .stats-section {
+    background: var(--dot-ink);
+    color: var(--dot-white);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .stat-card {
+    border-left: 3px solid var(--dot-accent);
+    padding-left: 1.5rem;
+  }
+
+  .stat-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem; font-weight: 800;
+    color: var(--dot-white);
+    line-height: 1;
+  }
+
+  .stat-number span { color: var(--dot-accent2); }
+
+  .stat-label {
+    font-size: 0.88rem;
+    color: rgba(249,248,245,0.6);
+    margin-top: 0.4rem;
+  }
+
+  /* PROCESS */
+  .process-list {
+    margin-top: 3.5rem;
+    display: flex; flex-direction: column; gap: 0;
+  }
+
+  .process-item {
+    display: grid; grid-template-columns: 64px 1fr;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--dot-border);
+    align-items: start;
+  }
+
+  .process-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 3.5rem; font-weight: 800;
+    color: #EBEBFF;
+    line-height: 1;
+  }
+
+  .process-content h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.25rem; font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .process-content p { font-size: 0.92rem; color: var(--dot-muted); }
+
+  /* CONTACT */
+  .contact-section { background: #F0F0FF; }
+
+  .contact-card {
+    background: var(--dot-ink);
+    color: #fff;
+    border-radius: 24px;
+    padding: 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 2rem;
+  }
+
+  .contact-card h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.5rem; font-weight: 800;
+    letter-spacing: -0.03em;
+    max-width: 480px;
+    line-height: 1.1;
+  }
+
+  .contact-card h2 span { color: var(--dot-accent2); }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; min-width: 300px; }
+
+  .contact-form input, .contact-form textarea {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 0.85rem 1.1rem;
+    color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: vertical;
+  }
+
+  .contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(255,255,255,0.45); }
+  .contact-form input:focus, .contact-form textarea:focus { border-color: var(--dot-accent2); }
+
+  .contact-form button {
+    background: var(--dot-accent2);
+    color: var(--dot-ink);
+    border: none; cursor: pointer;
+    padding: 0.9rem;
+    border-radius: 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem; font-weight: 700;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+
+  .contact-form button:hover { opacity: 0.88; transform: scale(1.02); }
+
+  /* FOOTER */
+  footer {
+    padding: 2.5rem 3rem;
+    border-top: 1px solid var(--dot-border);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+    font-size: 0.82rem; color: var(--dot-muted);
+  }
+
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem; font-weight: 800;
+    color: var(--dot-ink);
+    letter-spacing: -0.02em;
+  }
+
+  .footer-logo span { color: var(--dot-accent); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><span>DOT</span> Intelligence</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-badge">AI Strategy Consulting</div>
+  <h1>
+    We help businesses<br>
+    think with <span class="accent">Artificial</span><br>
+    <span class="accent2">Intelligence</span>
+  </h1>
+  <p class="hero-sub">
+    DOT Intelligence partners with organisations to design, deploy, and scale AI strategies that drive real business outcomes.
+  </p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">Start a Conversation</a>
+    <a href="#services" class="btn-outline">Our Services</a>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="ticker-dot"></span>AI Strategy Roadmap</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Digital Transformation</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Machine Learning Integration</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Data Intelligence</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>LLM Implementation</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Automation Consulting</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>AI Strategy Roadmap</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Digital Transformation</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Machine Learning Integration</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Data Intelligence</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>LLM Implementation</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Automation Consulting</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <p class="section-label">What We Do</p>
+    <h2 class="section-title">Services built for<br>the AI era</h2>
+    <p class="section-desc">From strategy to execution, we cover every stage of your AI journey with precision and expertise.</p>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🧭</div>
+        <h3>AI Strategy & Roadmapping</h3>
+        <p>We assess your business landscape and design a clear, actionable AI strategy aligned with your goals and capabilities.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🤖</div>
+        <h3>AI Implementation</h3>
+        <p>End-to-end deployment of machine learning models, LLMs, and automation tools — seamlessly integrated into your workflows.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <h3>Data Intelligence</h3>
+        <p>Transform raw data into actionable insights. We build data pipelines, dashboards, and analytics systems that power decisions.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔁</div>
+        <h3>Process Automation</h3>
+        <p>Identify repetitive, high-cost processes and replace them with intelligent automation that frees your team to do more.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎓</div>
+        <h3>AI Training & Upskilling</h3>
+        <p>Equip your team with the knowledge and tools to work alongside AI confidently through workshops and hands-on training.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔒</div>
+        <h3>AI Governance & Ethics</h3>
+        <p>Build responsible AI systems. We help you navigate compliance, bias, transparency, and risk at every stage.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="container">
+    <p class="section-label" style="color: rgba(249,248,245,0.5);">Our Impact</p>
+    <h2 class="section-title" style="color: #F9F8F5;">Numbers that speak<br>for themselves</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">50<span>+</span></div>
+        <div class="stat-label">AI Projects Delivered</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">30<span>%</span></div>
+        <div class="stat-label">Avg Cost Reduction for Clients</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">12<span>+</span></div>
+        <div class="stat-label">Industries Served</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">98<span>%</span></div>
+        <div class="stat-label">Client Satisfaction Rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <p class="section-label">How We Work</p>
+    <h2 class="section-title">A process as clear<br>as your strategy</h2>
+    <div class="process-list">
+      <div class="process-item">
+        <div class="process-num">01</div>
+        <div class="process-content">
+          <h3>Discovery & Diagnosis</h3>
+          <p>We immerse in your business — understanding your goals, data landscape, people, and challenges before recommending anything.</p>
+        </div>
+      </div>
+      <div class="process-item">
+        <div class="process-num">02</div>
+        <div class="process-content">
+          <h3>Strategy Design</h3>
+          <p>We craft a tailored AI strategy — identifying high-impact use cases, technology choices, and a phased implementation roadmap.</p>
+        </div>
+      </div>
+      <div class="process-item">
+        <div class="process-num">03</div>
+        <div class="process-content">
+          <h3>Build & Deploy</h3>
+          <p>Our team builds, tests, and deploys AI solutions with minimal disruption — always in close collaboration with your team.</p>
+        </div>
+      </div>
+      <div class="process-item">
+        <div class="process-num">04</div>
+        <div class="process-content">
+          <h3>Scale & Optimise</h3>
+          <p>We monitor performance, gather feedback, and continuously refine your AI systems to maximise ROI over time.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="container">
+    <div class="contact-card">
+      <div>
+        <h2>Ready to build an <span>AI-first</span> business?</h2>
+        <p style="margin-top: 1rem; color: rgba(249,248,245,0.6); font-size: 0.95rem; max-width: 380px;">Tell us about your challenge. We'll respond within 24 hours with a tailored perspective.</p>
+      </div>
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <input type="text" placeholder="Your name" required />
+        <input type="email" placeholder="Email address" required />
+        <input type="text" placeholder="Company name" />
+        <textarea placeholder="What are you trying to solve?" rows="3"></textarea>
+        <button type="submit">Send Message →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo"><span>DOT</span> Intelligence</div>
+  <div>© 2025 DOT Intelligence. All rights reserved.</div>
+  <div style="display: flex; gap: 1.5rem;">
+    <a href="#" style="color: inherit; text-decoration: none;">LinkedIn</a>
+    <a href="#" style="color: inherit; text-decoration: none;">Twitter</a>
+    <a href="#" style="color: inherit; text-decoration: none;">Email</a>
+  </div>
+</footer>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button');
+  btn.textContent = 'Message Sent ✓';
+  btn.style.background = '#00E5A0';
+  setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; e.target.reset(); }, 3000);
+}
+</script>
+</body>
+</html>
